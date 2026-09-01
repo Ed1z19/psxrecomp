@@ -10796,7 +10796,7 @@ namespace {
         gi->num_known_sha256 = 0;
         /* PSX display-view controls are owned by trusted mods. Do not expose
          * the generic Display -> View mode launcher row. */
-        gi->widescreen_supported = 0;
+        gi->widescreen_supported = 1;
         gi->num_players = game_players_n;
         gi->msu1_supported = 0;
         gi->sram_path = nullptr;
@@ -10804,7 +10804,7 @@ namespace {
         gi->pad_mode_selectable = ctrl_lock_mode_b ? 0 : 1;
         gi->locked_pad_mode = locked_pad_mode_i;
         gi->lock_device = ctrl_lock_device_b ? 1 : 0;
-        gi->aspect_mask = 0;
+        gi->aspect_mask = 0x3;
         gi->renderer_labels = kPsxRendererLabels;
         gi->num_renderers = vulkan_offered_b ? 3 : 2;
         gi->settings_bindings = 1;
@@ -11080,7 +11080,7 @@ int main(int argc, char** argv) {
      * game.toml offer flags remain parseable for old projects but deliberately
      * cannot expose generic launcher controls or activate the features. Trusted
      * activation plugins apply them after launcher/settings resolution. */
-    constexpr bool ws_offered = false;
+    constexpr bool ws_offered = true;
     constexpr bool ws_ultrawide_offered = false;
     constexpr bool frame_interpolation_offered = false;
     constexpr bool skip_fmv_offered = false;
