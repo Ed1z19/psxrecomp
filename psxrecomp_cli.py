@@ -198,12 +198,19 @@ def clamp_future_mtimes(
                 mtime = p.stat().st_mtime
             except OSError:
                 continue
-            if mtime > stamp:
+        if mtime > stamp:
+            try:
+                os.utime(p, (stamp, stamp), follow_symlinks=False)
+                n += 1
+            except NotImplementedError:
                 try:
-                    os.utime(p, (stamp, stamp), follow_symlinks=False)
+                    os.utime(p, (stamp, stamp))
                     n += 1
                 except OSError:
                     pass
+            except OSError:
+                pass
+
     return n
 
 
